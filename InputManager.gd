@@ -21,7 +21,6 @@ extends Node
 #TODO - compelte implementations for rest of joypad buttons
 #TODO - compelte implementations for Arrowkeys/Right Stick
 
-signal input_struct_signal(s)
 
 # ------------------ Input Maps ------------------
 
@@ -86,7 +85,7 @@ var j_raw_input_struct = {
 # Formatted Structs - set by _set_formatted_struct - called during physics_process
 var parsed_input_struct = {
 	#Movement
-	"move_input_vec": Vector2.ZERO,
+	"move_input": Vector2.ZERO,
 	#Actions
 	"jump_action":
 	{"pressed": false, "pressed_this_frame": false, "released_this_frame": false, "timer": 0.0},
@@ -163,7 +162,7 @@ func parse_raw_input_struct(delta):
 
 func parse_joypad_inputs(delta):
 	# -------------------- Movement --------------------
-	parsed_input_struct.move_input_vec = Vector2(
+	parsed_input_struct.move_input = Vector2(
 		j_raw_input_struct.left_stick_x, j_raw_input_struct.left_stick_y
 	)
 	# -------------------- Actions --------------------
@@ -201,13 +200,13 @@ func parse_key_inputs(delta):
 func parse_keyboard_movement_input():
 	#set move_vec
 	if k_raw_input_struct.up:
-		parsed_input_struct.move_input_vec.y += 1
+		parsed_input_struct.move_input.y += 1
 	if k_raw_input_struct.down:
-		parsed_input_struct.move_input_vec.y -= 1
+		parsed_input_struct.move_input.y -= 1
 	if k_raw_input_struct.left:
-		parsed_input_struct.move_input_vec.x -= 1
+		parsed_input_struct.move_input.x -= 1
 	if k_raw_input_struct.right:
-		parsed_input_struct.move_input_vec.x += 1
+		parsed_input_struct.move_input.x += 1
 
 
 func parse_input_action_button(raw_value, action, delta):
